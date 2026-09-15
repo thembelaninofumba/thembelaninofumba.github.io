@@ -1,0 +1,15 @@
+{
+  "name": "thembelani-nofumba-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "build": "node tools/build.mjs",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0"
+  }
+}

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#14382f"/><stop offset="1" stop-color="#091814"/></linearGradient><linearGradient id="area" x2="0" y2="1"><stop stop-color="#83e8bb" stop-opacity=".28"/><stop offset="1" stop-color="#83e8bb" stop-opacity="0"/></linearGradient></defs>
+<rect width="960" height="640" fill="url(#bg)"/>
+<g fill="none" stroke="#84d7ad" stroke-opacity=".08"><path d="M0 80H960M0 160H960M0 240H960M0 320H960M0 400H960M0 480H960M0 560H960M80 0V640M160 0V640M240 0V640M320 0V640M400 0V640M480 0V640M560 0V640M640 0V640M720 0V640M800 0V640M880 0V640"/></g>
+<rect x="62" y="56" width="836" height="528" rx="14" fill="#0d1814" stroke="#335146"/>
+<path d="M62 108H898M204 108V584" stroke="#293c33"/>
+<g font-family="Arial,sans-serif"><circle cx="88" cy="82" r="5" fill="#77dab0"/><circle cx="105" cy="82" r="5" fill="#385a48"/><circle cx="122" cy="82" r="5" fill="#385a48"/>
+<text x="230" y="87" fill="#e3f0e9" font-size="13">E-Teaching &amp; Learning</text><text x="765" y="87" fill="#96b4a5" font-size="11">DEMO WORKSPACE</text>
+<rect x="80" y="135" width="105" height="32" rx="6" fill="#214b39"/><text x="95" y="155" fill="#acf1cb" font-size="12">Overview</text>
+<g fill="#98b0a3" font-size="12"><text x="95" y="198">Schools</text><text x="95" y="240">Connectivity</text><text x="95" y="282">Monitoring</text><text x="95" y="324">Development</text><text x="95" y="366">Assessments</text></g>
+<text x="230" y="150" fill="#f0f6f1" font-size="21" font-weight="bold">A clearer view of school resources.</text><text x="230" y="173" fill="#93aa9e" font-size="12">Provincial overview / Illustrative data</text>
+<g fill="#15261e" stroke="#294033"><rect x="230" y="196" width="199" height="91" rx="8"/><rect x="444" y="196" width="199" height="91" rx="8"/><rect x="658" y="196" width="214" height="91" rx="8"/></g>
+<g fill="#a5bcae" font-size="11"><text x="247" y="220">SCHOOLS IN VIEW</text><text x="461" y="220">CONNECTIVITY</text><text x="675" y="220">MONITORING VISITS</text></g>
+<g fill="#eaf6ef" font-size="30" font-weight="bold"><text x="247" y="263">128</text><text x="461" y="263">76%</text><text x="675" y="263">42</text></g>
+<rect x="230" y="304" width="394" height="246" rx="8" fill="#111f18" stroke="#294033"/><text x="249" y="334" fill="#c9dfd1" font-size="13">Monitoring activity</text><text x="548" y="334" fill="#90b39e" font-size="10">6 MONTHS</text>
+<g stroke="#273b2f"><path d="M249 378H606M249 423H606M249 468H606M249 513H606"/></g>
+<path d="M251 487L310 459L368 470L428 423L487 433L544 388L603 368V513H251Z" fill="url(#area)"/><path d="M251 487L310 459L368 470L428 423L487 433L544 388L603 368" fill="none" stroke="#86e4b4" stroke-width="3" stroke-linejoin="round"/>
+<g fill="#97b09f" font-size="10"><text x="250" y="536">APR</text><text x="364" y="536">JUN</text><text x="481" y="536">AUG</text><text x="582" y="536">SEP</text></g>
+<rect x="640" y="304" width="232" height="246" rx="8" fill="#111f18" stroke="#294033"/><text x="659" y="334" fill="#c9dfd1" font-size="13">Resource readiness</text>
+<circle cx="756" cy="424" r="59" fill="none" stroke="#263d30" stroke-width="17"/><circle cx="756" cy="424" r="59" fill="none" stroke="#8be3b6" stroke-width="17" stroke-dasharray="264 371" transform="rotate(-90 756 424)"/><text x="756" y="432" text-anchor="middle" fill="#f0f6f1" font-size="29" font-weight="bold">71%</text><text x="756" y="518" text-anchor="middle" fill="#9eb6a7" font-size="11">Sample readiness indicator</text>
+<text x="81" y="562" fill="#9eb6a7" font-size="9">SAMPLE DATA</text></g></svg>
