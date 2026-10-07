@@ -1,0 +1,92 @@
+/* Ivory and navy palette; portraits retain their original colours. */
+:root {
+  color-scheme: light;
+  --bg: #faf8f3;
+  --surface: #f0ede5;
+  --raised: #e6ebf0;
+  --ink: #182d47;
+  --muted: #526174;
+  --accent: #244a73;
+  --line: #d3d8df;
+}
+
+body::selection, .skip-link { background: var(--accent); color: #fff; }
+.status-dot { box-shadow: 0 0 0 5px #244a730d; }
+.brand-name, .hero-links, .tool-strip > .section-shell,
+.filters button, .project-meta, .project-status, .text-link,
+.experience-date, .skill-group h4, .contact-bottom, .case-facts dd {
+  color: var(--ink);
+}
+.header-contact, .github-more, .contact-email { border-color: var(--accent); }
+.hero::before { background: radial-gradient(ellipse, #dce6ef85, transparent 65%); }
+.button-primary { background: var(--accent); color: #fff; }
+.button-primary:hover { background: #183754; }
+.button-quiet { background: transparent; color: var(--ink); }
+.button-quiet:hover { background: var(--surface); }
+.hero-links > a span, .hero-links > span:not(.location),
+.portrait-corner, .scroll-cue, .tool-strip .strip-label,
+.project-count, .gallery-note, .site-footer > a:last-child,
+.case-facts dt, .case-cover figcaption, .main-nav a span,
+.js .main-nav > a span { color: var(--muted); }
+
+/* Put all lettering on a separate surface, leaving the photo unobscured. */
+.hero-visual { padding-bottom: 0; }
+.portrait-frame {
+  aspect-ratio: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px 56px 8px 8px;
+  background: #fff;
+  box-shadow: 0 18px 50px #182d4710;
+}
+.portrait-frame > img { height: auto; filter: none; }
+.portrait-frame::after { display: none; }
+.portrait-caption {
+  position: static;
+  padding: 22px 26px 24px;
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+.portrait-caption > span { color: var(--muted); }
+.portrait-caption > strong { color: var(--ink); font-size: 21px; margin-top: 8px; }
+.about-signature img { filter: none; }
+.visual-note {
+  position: static;
+  margin-top: 14px;
+  background: var(--raised);
+  border-color: var(--line);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.visual-note div > span { color: var(--muted); }
+.note-icon { border-color: #a0b1c3; }
+
+.tool-strip { background: var(--surface); }
+.filters button[aria-pressed=true] { background: #e2eaf3; border-color: #91a9c2; }
+.project-image { background: #fff; }
+.image-label { color: #fff; background: #182d47ed; }
+.project-arrow { color: #fff; background: #182d47ed; border-color: #8296ad; }
+.project-image:hover .project-arrow { background: var(--accent); color: #fff; }
+.about { background: #f0ede5; }
+.about-copy .lead { color: var(--ink); }
+.experience-list li::marker { color: var(--accent); }
+.education-list .small-tag { background: #e2eaf3; }
+.tags > span { color: #2e4d6c; background: #edf1f5; border-color: #c6d1dc; }
+.contact { background: #e7edf3; border-color: #c7d2dd; }
+.contact::after { border-color: #244a731a; }
+.contact-orb { border-color: #7189a4; }
+.contact-orb:hover { color: #fff; }
+.contact-bottom { border-color: #c7d2dd; }
+.js .main-nav { background: var(--bg); border-color: var(--line); }
+
+@media (max-width: 800px) {
+  .portrait-frame { border-top-right-radius: 36px; }
+  .portrait-caption { padding: 16px; }
+  .portrait-caption > strong { font-size: 17px; }
+  .js .main-nav { box-shadow: 0 16px 35px #182d471a; }
+}
+@media (max-width: 580px) {
+  .hero-visual { width: 100%; padding-left: 0; }
+  .portrait-caption { padding: 20px 22px; }
+  .portrait-caption > strong { font-size: 21px; }
+  .portrait-corner { display: none; }
+}
