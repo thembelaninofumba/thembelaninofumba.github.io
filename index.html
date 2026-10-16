@@ -21,7 +21,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <a class="brand" href="#home" aria-label="Thembelani Nofumba, home"><span class="monogram">tn<span>.</span></span><span class="brand-name">Thembelani<br>Nofumba</span></a>
-    <div class="header-right"><a class="header-contact" href="mailto:thembelaninofumba@gmail.com">Let’s talk <span aria-hidden="true">↗</span></a><button class="menu-toggle" aria-controls="main-nav" aria-expanded="false">Menu <span aria-hidden="true">☰</span></button></div>
+    <div class="header-right"><a class="header-contact" href="mailto:thembelaninofumba@gmail.com">Let’s talk <span aria-hidden="true">↗</span></a><button class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false">Menu <svg class="menu-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9H15"/><path d="M3 9H15"/></svg></button></div>
     <nav id="main-nav" class="main-nav" aria-label="Main">
       <a href="#home" aria-current="location"><span aria-hidden="true">01</span> Home</a>
       <a href="#work"><span aria-hidden="true">02</span> Work</a>
@@ -41,8 +41,6 @@
       </div>
       <div class="hero-visual">
         <div class="portrait-frame"><img src="assets/img/thembelani.png" alt="Thembelani Nofumba" width="1122" height="1402" fetchpriority="high"><div class="portrait-caption"><span>THE PERSON BEHIND THE DATA</span><strong>Curious by nature.<br>Practical by design.</strong></div></div>
-        <div class="portrait-corner" aria-hidden="true">TN / 01</div>
-        <div class="visual-note"><span class="note-icon" aria-hidden="true">↗</span><div><strong>From insight to action.</strong><span>Analytics · Dashboards · Development</span></div></div>
       </div>
       <a class="scroll-cue" href="#work"><span aria-hidden="true">↓</span> A selection of what I build</a>
     </section>
@@ -50,8 +48,8 @@
 
     <section id="work" class="work section-shell section-spacing">
       <div class="section-heading"><div><p class="eyebrow">02 / Selected work</p><h2>Built to be <em>useful.</em></h2></div><p>Real problems. Practical solutions.<br>A closer look at the work behind the code.</p></div>
-      <div class="work-toolbar"><div class="filters" role="group" aria-label="Filter projects"><button data-filter="all" aria-pressed="true">All projects</button><button data-filter="analytics" aria-pressed="false">Analytics</button><button data-filter="systems" aria-pressed="false">Business systems</button></div><span class="project-count" aria-live="polite">04 projects</span></div>
-      <div class="project-grid">
+      <div class="work-toolbar"><div class="filters" role="group" aria-label="Filter projects"><button type="button" data-filter="all" aria-controls="project-grid" aria-pressed="true">All projects</button><button type="button" data-filter="analytics" aria-controls="project-grid" aria-pressed="false">Analytics</button><button type="button" data-filter="systems" aria-controls="project-grid" aria-pressed="false">Business systems</button></div><span class="project-count" role="status" aria-live="polite" aria-atomic="true">04 projects</span></div>
+      <div id="project-grid" class="project-grid">
         <article class="project-card" data-category="analytics">
           <a class="project-image" href="projects/education-dashboard.html" aria-label="Explore E-Teaching &amp; Learning Dashboard"><img src="assets/img/education.svg" alt="Illustrated school monitoring dashboard with charts and resource indicators using sample data" width="960" height="640" loading="lazy"><span class="image-label">01 / EDUCATION ANALYTICS</span><span class="project-arrow" aria-hidden="true">↗</span></a>
           <div class="project-meta"><span>React · Django · PostgreSQL</span><span class="project-status">Private / Local review</span></div>

@@ -11,6 +11,11 @@ test('project filters narrow the gallery and restore all four projects', async (
   await expect(page.getByRole('button', { name: 'Business systems', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('button', { name: 'All projects', exact: true }).click();
   await expect(page.locator('[data-category]:visible')).toHaveCount(4);
+  await page.getByRole('button', { name: 'Analytics', exact: true }).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('[data-category]:visible')).toHaveCount(2);
+  await expect(page.getByRole('status')).toHaveText('02 projects');
+  await expect(page.getByRole('button', { name: 'Analytics', exact: true })).toBeFocused();
 });
 
 test('mobile menu works with navigation and Escape', async ({ page }) => {
@@ -26,6 +31,12 @@ test('mobile menu works with navigation and Escape', async ({ page }) => {
   await page.keyboard.press('Escape');
   await expect(toggle).toBeFocused();
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await page.keyboard.press('Enter');
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+  await page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Contact', exact: true }).focus();
+  await page.keyboard.press('Tab');
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.getByRole('navigation', { name: 'Main' })).toBeHidden();
 });
 
 test('case studies, local assets, anchors and CV resolve', async ({ page, request }) => {
@@ -50,7 +61,7 @@ test('case studies, local assets, anchors and CV resolve', async ({ page, reques
 test('layouts fit mobile, tablet and desktop and pass accessibility checks', async ({ page }) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  for (const width of [375, 768, 1440]) {
+  for (const width of [320, 375, 768, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
     for (const route of ['/', '/projects/education-dashboard.html']) {
       await page.goto(route);
@@ -62,11 +73,32 @@ test('layouts fit mobile, tablet and desktop and pass accessibility checks', asy
   expect(errors).toEqual([]);
 });
 
+test('narrow screens preserve natural portraits and usable controls across the portfolio', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 812 });
+  for (const route of ['/', '/projects/budget-planner.html', '/projects/ppms.html', '/projects/ceaf.html', '/404.html']) {
+    await page.goto(route);
+    await page.evaluate(() => document.fonts.ready);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), route).toBe(true);
+  }
+  await page.goto('/');
+  await page.locator('.portrait-frame img').evaluate(img => img.decode());
+  for (const selector of ['.portrait-frame img', '.about-signature img']) {
+    expect(await page.locator(selector).evaluate(img => getComputedStyle(img).filter)).toBe('none');
+  }
+  const portrait = await page.locator('.portrait-frame img').boundingBox();
+  const caption = await page.locator('.portrait-caption').boundingBox();
+  expect(caption.y).toBeGreaterThanOrEqual(portrait.y + portrait.height - 1);
+  for (const control of await page.locator('.menu-toggle,.hero-actions a,.filters button').all()) {
+    expect((await control.boundingBox()).height).toBeGreaterThanOrEqual(44);
+  }
+});
+
 test('core content and project links remain usable without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 375, height: 812 } });
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4173/');
   await expect(page.locator('[data-category]:visible')).toHaveCount(4);
+  await expect(page.getByRole('group', { name: 'Filter projects' })).toBeHidden();
   await expect(page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Work', exact: true })).toBeVisible();
   await page.locator('a[href="projects/budget-planner.html"]').first().click();
   await expect(page).toHaveURL(/budget-planner.html$/);

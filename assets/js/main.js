@@ -1,5 +1,13 @@
 document.documentElement.classList.add('js');
 
+// Keyboard navigation stays immediate; press motion is reserved for pointer input.
+document.addEventListener('pointerdown', () => {
+  document.documentElement.dataset.input = 'pointer';
+}, { passive: true });
+document.addEventListener('keydown', () => {
+  document.documentElement.dataset.input = 'keyboard';
+});
+
 const menu = document.querySelector('.menu-toggle');
 const nav = document.querySelector('#main-nav');
 if (menu && nav) {
@@ -32,6 +40,9 @@ if (menu && nav) {
     }
   });
   document.addEventListener('click', event => {
+    if (!nav.contains(event.target) && !menu.contains(event.target)) closeMenu();
+  });
+  document.addEventListener('focusin', event => {
     if (!nav.contains(event.target) && !menu.contains(event.target)) closeMenu();
   });
   matchMedia('(min-width: 801px)').addEventListener('change', closeMenu);
