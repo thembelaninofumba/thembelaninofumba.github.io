@@ -163,6 +163,7 @@ body::selection, .skip-link { background: var(--accent); color: #fff; }
 .js .main-nav { background: var(--bg); border-color: var(--line); }
 .main-nav a { min-height: 44px; display: flex; align-items: center; }
 .main-nav a[aria-current] { font-weight: 600; }
+.nav-indicator { display: none; }
 .case-header > .text-link { margin-top: 0; }
 .case-main { padding-top: 40px; }
 .breadcrumb { font-size: 13px; margin-bottom: 24px; }
@@ -191,9 +192,23 @@ html[data-input="keyboard"] :is(a, button) { transition: none; }
 }
 
 @media (min-width: 1300px) {
+  .main-nav, .js .main-nav { background: transparent; }
   .main-nav { left: 20px; padding-left: 10px; gap: 5px; font-size: 12px; }
-  .main-nav a { gap: 7px; }
+  .main-nav a, .main-nav a[aria-current] { gap: 7px; font-weight: 500; }
   .main-nav a span { font-size: 10px; }
+  .js .nav-indicator {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -1.5px;
+    width: 2px;
+    height: 22px;
+    border-radius: 2px;
+    background: var(--accent);
+    pointer-events: none;
+  }
+  .nav-indicator.is-ready { transition: transform 180ms var(--ease-out); }
+  html[data-input="keyboard"] .nav-indicator { transition: none; }
 }
 @media (min-width: 801px) and (max-width: 1299px) {
   .site-header { display: grid; grid-template-columns: 1fr auto auto; gap: 24px; }
@@ -290,4 +305,5 @@ html[data-input="keyboard"] :is(a, button) { transition: none; }
   html[data-input="pointer"] :is(.button, .menu-toggle, .filters button):active,
   .button:hover, .project-image:hover > img { transform: none; }
   html.js[data-input="pointer"] .main-nav.is-open { transition: none; }
+  .nav-indicator.is-ready { transition: none; }
 }

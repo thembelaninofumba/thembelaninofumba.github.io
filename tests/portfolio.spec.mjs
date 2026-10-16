@@ -39,6 +39,39 @@ test('mobile menu works with navigation and Escape', async ({ page }) => {
   await expect(page.getByRole('navigation', { name: 'Main' })).toBeHidden();
 });
 
+test('desktop navigation stays clear across section backgrounds and tracks the current section', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  const nav = page.getByRole('navigation', { name: 'Main' });
+  const indicator = nav.locator('.nav-indicator');
+  await expect(nav).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  await expect(indicator).toBeVisible();
+
+  for (const id of ['about', 'experience', 'work']) {
+    await page.evaluate(id => window.scrollTo({
+      top: document.getElementById(id).offsetTop - 100, behavior: 'instant'
+    }), id);
+    const active = nav.locator(`a[href="#${id}"]`);
+    await expect(active).toHaveAttribute('aria-current', 'location');
+    await expect(nav.locator('a[aria-current]')).toHaveCount(1);
+    await expect.poll(async () => {
+      const marker = await indicator.boundingBox();
+      const link = await active.boundingBox();
+      return Math.abs(marker.y + marker.height / 2 - link.y - link.height / 2);
+    }).toBeLessThan(1);
+  }
+
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
+  await expect(nav.getByRole('link', { name: 'Contact', exact: true })).toHaveAttribute('aria-current', 'location');
+  await expect(indicator).toHaveCSS('transition-duration', '0s');
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.getByRole('button', { name: 'Menu', exact: true }).click();
+  await expect(nav).toHaveCSS('background-color', 'rgb(250, 248, 243)');
+  await expect(indicator).toBeHidden();
+});
+
 test('case studies, local assets, anchors and CV resolve', async ({ page, request }) => {
   for (const route of ['/', '/projects/education-dashboard.html', '/projects/budget-planner.html', '/projects/ppms.html', '/projects/ceaf.html', '/404.html']) {
     const response = await page.goto(route);

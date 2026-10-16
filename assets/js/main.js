@@ -46,18 +46,58 @@ if (menu && nav) {
     if (!nav.contains(event.target) && !menu.contains(event.target)) closeMenu();
   });
   matchMedia('(min-width: 801px)').addEventListener('change', closeMenu);
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        for (const link of nav.querySelectorAll('a')) {
-          if (link.hash === '#' + entry.target.id) link.setAttribute('aria-current', 'location');
-          else link.removeAttribute('aria-current');
-        }
-      }
-    }, { rootMargin: '-15% 0px -65% 0px', threshold: 0 });
-    document.querySelectorAll('main > section[id]').forEach(section => observer.observe(section));
+
+  const links = [...nav.querySelectorAll('a[href^="#"]')];
+  const sections = links.map(link => ({ link, section: document.getElementById(link.hash.slice(1)) }))
+    .filter(entry => entry.section);
+  const indicator = document.createElement('span');
+  indicator.className = 'nav-indicator';
+  indicator.setAttribute('aria-hidden', 'true');
+  nav.prepend(indicator);
+  let current = nav.querySelector('a[aria-current]') || links[0];
+
+  const positionIndicator = () => {
+    if (!current || getComputedStyle(nav).position !== 'fixed') return;
+    const y = current.offsetTop + (current.offsetHeight - indicator.offsetHeight) / 2;
+    indicator.style.transform = `translateY(${y}px)`;
+  };
+  const updateCurrentSection = () => {
+    if (!sections.length) return;
+    const boundary = innerHeight * .35;
+    const atBottom = Math.ceil(scrollY + innerHeight) >= document.documentElement.scrollHeight - 2;
+    let active = sections[0];
+    for (const entry of sections) {
+      if (entry.section.getBoundingClientRect().top <= boundary) active = entry;
+    }
+    if (atBottom) active = sections[sections.length - 1];
+    if (current !== active.link) {
+      current = active.link;
+      links.forEach(link => {
+        if (link === current) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }
+    positionIndicator();
+  };
+  let scheduled = false;
+  const scheduleUpdate = () => {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      updateCurrentSection();
+    });
+  };
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate);
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(scheduleUpdate);
+    observer.observe(nav);
+    observer.observe(document.querySelector('main'));
   }
+  document.fonts.ready.then(scheduleUpdate);
+  updateCurrentSection();
+  requestAnimationFrame(() => indicator.classList.add('is-ready'));
 }
 
 const cards = [...document.querySelectorAll('[data-category]')];
